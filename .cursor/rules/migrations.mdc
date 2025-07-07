@@ -1,6 +1,4 @@
 ---
-description:
-globs:
-alwaysApply: false
+alwaysApply: true
 ---
 Никогда не создавай миграцим и не пытайся их применить в API. Я все это делаю сам.
