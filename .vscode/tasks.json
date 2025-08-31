@@ -2,6 +2,30 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Setup Full System",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "echo Starting full system setup... && cd ${workspaceFolder}/api && py -3.12 -m venv .venv && .venv\\Scripts\\activate.bat && pip install poetry && poetry install && api migrate && api collectstatic --noinput && cd ${workspaceFolder}/client && npm install && echo Setup completed successfully!"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "group": {
+                "kind": "build"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Start All Services",
             "dependsOrder": "parallel",
             "dependsOn": [
@@ -74,6 +98,80 @@
             "type": "shell",
             "command": "cmd",
             "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api start_celery_beat"],
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Install Video Analysis Dependencies",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Install FFmpeg",
+                "Install Opus MT Model",
+                "Install Vosk Model"
+            ],
+            "group": {
+                "kind": "build"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Install FFmpeg",
+            "type": "shell",
+            "command": "cmd",
+            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_ffmpeg"],
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Install Opus MT Model",
+            "type": "shell",
+            "command": "cmd",
+            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_opus_mt"],
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Install Vosk Model",
+            "type": "shell",
+            "command": "cmd",
+            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_vosk_model"],
             "options": {
                 "cwd": "${workspaceFolder}/api"
             },
