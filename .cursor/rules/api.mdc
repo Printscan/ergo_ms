@@ -10,6 +10,9 @@ alwaysApply: true
 Все медиа файлы должны храниться в media, путь - ergo_ms/api/media
 Все сторонние программы должны храниться в packages, путь - ergo_ms/api/packages
 Все файлы моделей (.keras, .pkl и т.д.) должны храниться в trained_models, путь - ergo_ms/api/trained_models
-Все эти пути прописаны в django конфиге, ergo_ms/api/src/config/settings/base.py и  ergo_ms/api/src/config/settings/static.py
+Все эти пути прописаны в django конфиге, ergo_ms/api/src/config/settings/base.py и ergo_ms/api/src/config/settings/static.py
+Из ergo_ms/api/src/config/settings/base.py бери основные пути проекта.
 
 Не генерируй admin.py файлы и все что связано с админ-панелью Django, она не используется.
+
+Используй для логирования Django функционал, по пути - ergo_ms/api/src/config/settings/logger.py находится конфиг логов.
