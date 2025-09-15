@@ -117,7 +117,9 @@
             "dependsOn": [
                 "Install FFmpeg",
                 "Install Opus MT Model",
-                "Install Vosk Model"
+                "Install Vosk Model",
+                "Install Silero Repo",
+                "Install Silero TTS FR Model"
             ],
             "group": {
                 "kind": "build"
@@ -172,6 +174,48 @@
             "type": "shell",
             "command": "cmd",
             "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_vosk_model"],
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Install Silero Repo",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_silero_repo"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Install Silero TTS FR Model",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_tts_model --language fr --speaker v3_fr"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}/api"
             },
