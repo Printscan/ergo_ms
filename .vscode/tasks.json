@@ -4,13 +4,33 @@
         {
             "label": "Setup Full System",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then python3 -m venv .venv && source .venv/bin/activate && pip install poetry && poetry install && api migrate && api collectstatic --noinput; else py -3.12 -m venv .venv && .venv/Scripts/activate.bat && pip install poetry && poetry install && api migrate && api collectstatic --noinput; fi && cd '${workspaceFolder}/client' && npm install"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": "cd /d \"${workspaceFolder}\\api\" && py -3.12 -m venv .venv && .venv\\Scripts\\activate.bat && pip install poetry && poetry install && api migrate && api collectstatic --noinput && cd /d \"${workspaceFolder}\\client\" && npm install",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": "cd /d \"${workspaceFolder}\\api\" && py -3.12 -m venv .venv && .venv\\Scripts\\activate.bat && pip install poetry && poetry install && api migrate && api collectstatic --noinput && cd /d \"${workspaceFolder}\\client\" && npm install"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "cd \"${workspaceFolder}/api\" && python3 -m venv .venv && source .venv/bin/activate && pip install poetry && poetry install && api migrate && api collectstatic --noinput && cd \"${workspaceFolder}/client\" && npm install"
             },
             "presentation": {
                 "echo": true,
@@ -60,13 +80,33 @@
         {
             "label": "API",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api dev; else .venv/Scripts/activate.bat && api dev; fi"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api dev",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api dev"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api dev"
             },
             "presentation": {
                 "echo": true,
@@ -81,13 +121,33 @@
         {
             "label": "Celery Worker",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api start_celery_worker; else .venv/Scripts/activate.bat && api start_celery_worker; fi"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api start_celery_worker",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api start_celery_worker"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api start_celery_worker"
             },
             "presentation": {
                 "echo": true,
@@ -102,13 +162,33 @@
         {
             "label": "Celery Beat",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api start_celery_beat; else .venv/Scripts/activate.bat && api start_celery_beat; fi"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api start_celery_beat",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api start_celery_beat"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api start_celery_beat"
             },
             "presentation": {
                 "echo": true,
@@ -145,13 +225,33 @@
         {
             "label": "Install FFmpeg",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_ffmpeg; else .venv/Scripts/activate.bat && api install_ffmpeg; fi"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api install_ffmpeg",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api install_ffmpeg"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api install_ffmpeg"
             },
             "presentation": {
                 "echo": true,
@@ -166,13 +266,33 @@
         {
             "label": "Install Opus MT Model",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_opus_mt; else .venv/Scripts/activate.bat && api install_opus_mt; fi"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api install_opus_mt",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api install_opus_mt"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api install_opus_mt"
             },
             "presentation": {
                 "echo": true,
@@ -187,13 +307,33 @@
         {
             "label": "Install Vosk Model",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_vosk_model; else .venv/Scripts/activate.bat && api install_vosk_model; fi"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api install_vosk_model",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api install_vosk_model"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api install_vosk_model"
             },
             "presentation": {
                 "echo": true,
@@ -208,13 +348,33 @@
         {
             "label": "Install Silero Repo",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_silero_repo; else .venv/Scripts/activate.bat && api install_silero_repo; fi"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api install_silero_repo",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api install_silero_repo"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api install_silero_repo"
             },
             "presentation": {
                 "echo": true,
@@ -229,13 +389,33 @@
         {
             "label": "Install Silero TTS FR Model",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_tts_model --language fr --speaker v3_fr; else .venv/Scripts/activate.bat && api install_tts_model --language fr --speaker v3_fr; fi"
-            ],
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api install_tts_model --language fr --speaker v3_fr",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api install_tts_model --language fr --speaker v3_fr"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api install_tts_model --language fr --speaker v3_fr"
             },
             "presentation": {
                 "echo": true,
@@ -261,15 +441,29 @@
         {
             "label": "Logs: ergo-api-dev",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "if [[ \"$(uname -s)\" == \"Linux\" ]]; then journalctl -u ergo-api-dev -n 500 -f | cat; else echo 'Logs not available on Windows - use Windows tasks instead'; fi"
-            ],
             "options": {
                 "shell": {
-                    "executable": "/bin/bash",
-                    "args": ["-c"]
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": "echo Logs not available on Windows - use Windows tasks instead",
+            "windows": {
+                "command": "echo Logs not available on Windows - use Windows tasks instead",
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                }
+            },
+            "linux": {
+                "command": "journalctl -u ergo-api-dev -n 500 -f | cat",
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
                 }
             },
             "presentation": {
@@ -284,15 +478,29 @@
         {
             "label": "Logs: ergo-client-dev",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "if [[ \"$(uname -s)\" == \"Linux\" ]]; then journalctl -u ergo-client-dev -n 500 -f | cat; else echo 'Logs not available on Windows - use Windows tasks instead'; fi"
-            ],
             "options": {
                 "shell": {
-                    "executable": "/bin/bash",
-                    "args": ["-c"]
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": "echo Logs not available on Windows - use Windows tasks instead",
+            "windows": {
+                "command": "echo Logs not available on Windows - use Windows tasks instead",
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                }
+            },
+            "linux": {
+                "command": "journalctl -u ergo-client-dev -n 500 -f | cat",
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
                 }
             },
             "presentation": {
@@ -307,15 +515,29 @@
         {
             "label": "Logs: ergo-celery-worker",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "if [[ \"$(uname -s)\" == \"Linux\" ]]; then journalctl -u ergo-celery-worker -n 500 -f | cat; else echo 'Logs not available on Windows - use Windows tasks instead'; fi"
-            ],
             "options": {
                 "shell": {
-                    "executable": "/bin/bash",
-                    "args": ["-c"]
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": "echo Logs not available on Windows - use Windows tasks instead",
+            "windows": {
+                "command": "echo Logs not available on Windows - use Windows tasks instead",
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                }
+            },
+            "linux": {
+                "command": "journalctl -u ergo-celery-worker -n 500 -f | cat",
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
                 }
             },
             "presentation": {
@@ -330,15 +552,29 @@
         {
             "label": "Logs: ergo-celery-beat",
             "type": "shell",
-            "command": "bash",
-            "args": [
-                "-c",
-                "if [[ \"$(uname -s)\" == \"Linux\" ]]; then journalctl -u ergo-celery-beat -n 500 -f | cat; else echo 'Logs not available on Windows - use Windows tasks instead'; fi"
-            ],
             "options": {
                 "shell": {
-                    "executable": "/bin/bash",
-                    "args": ["-c"]
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": "echo Logs not available on Windows - use Windows tasks instead",
+            "windows": {
+                "command": "echo Logs not available on Windows - use Windows tasks instead",
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                }
+            },
+            "linux": {
+                "command": "journalctl -u ergo-celery-beat -n 500 -f | cat",
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
                 }
             },
             "presentation": {
@@ -353,11 +589,31 @@
         {
             "label": "Install CLI (ergoms)",
             "type": "shell",
-            "command": "/bin/bash",
-            "args": [
-                "-lc",
-                "if [[ $(uname -s) == Linux ]]; then sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install-cli | cat; else echo \"CLI installation not available on Windows - use Windows tasks instead\"; fi"
-            ],
+            "options": {
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": "echo CLI installation not available on Windows - use Windows tasks instead",
+            "windows": {
+                "command": "echo CLI installation not available on Windows - use Windows tasks instead",
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                }
+            },
+            "linux": {
+                "command": "sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install-cli | cat",
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                }
+            },
             "presentation": {
                 "reveal": "always",
                 "panel": "dedicated",
@@ -370,11 +626,31 @@
         {
             "label": "Install Services & CLI",
             "type": "shell",
-            "command": "/bin/bash",
-            "args": [
-                "-lc",
-                "if [[ $(uname -s) == Linux ]]; then sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install \"${workspaceFolder}\" | cat; else echo \"Services installation not available on Windows - use Windows tasks instead\"; fi"
-            ],
+            "options": {
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": "echo Services installation not available on Windows - use Windows tasks instead",
+            "windows": {
+                "command": "echo Services installation not available on Windows - use Windows tasks instead",
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                }
+            },
+            "linux": {
+                "command": "sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install \"${workspaceFolder}\" | cat",
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                }
+            },
             "presentation": {
                 "reveal": "always",
                 "panel": "dedicated",
@@ -387,11 +663,31 @@
         {
             "label": "Start Services",
             "type": "shell",
-            "command": "/bin/bash",
-            "args": [
-                "-lc",
-                "if [[ $(uname -s) == Linux ]]; then sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" start | cat; else echo \"Services start not available on Windows - use Windows tasks instead\"; fi"
-            ],
+            "options": {
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": "echo Services start not available on Windows - use Windows tasks instead",
+            "windows": {
+                "command": "echo Services start not available on Windows - use Windows tasks instead",
+                "options": {
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                }
+            },
+            "linux": {
+                "command": "sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" start | cat",
+                "options": {
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                }
+            },
             "presentation": {
                 "reveal": "always",
                 "panel": "dedicated",
