@@ -2,12 +2,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Windows: Setup Full System",
+            "label": "Setup Full System",
             "type": "shell",
-            "command": "cmd",
+            "command": "bash",
             "args": [
-                "/c",
-                "echo Starting full system setup... && cd ${workspaceFolder}/api && py -3.12 -m venv .venv && .venv\\Scripts\\activate.bat && pip install poetry && poetry install && api migrate && api collectstatic --noinput && cd ${workspaceFolder}/client && npm install && echo Setup completed successfully!"
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then python3 -m venv .venv && source .venv/bin/activate && pip install poetry && poetry install && api migrate && api collectstatic --noinput; else py -3.12 -m venv .venv && .venv/Scripts/activate.bat && pip install poetry && poetry install && api migrate && api collectstatic --noinput; fi && cd '${workspaceFolder}/client' && npm install"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -26,13 +26,13 @@
             "problemMatcher": []
         },
         {
-            "label": "Windows: Start All Services",
+            "label": "Start All Services",
             "dependsOrder": "parallel",
             "dependsOn": [
-                "Windows: Client",
-                "Windows: API",
-                "Windows: Celery Worker", 
-                "Windows: Celery Beat"
+                "Client",
+                "API",
+                "Celery Worker",
+                "Celery Beat"
             ],
             "group": {
                 "kind": "build",
@@ -40,7 +40,7 @@
             }
         },
         {
-            "label": "Windows: Client",
+            "label": "Client",
             "type": "shell",
             "command": "npm",
             "args": ["run", "dev"],
@@ -58,10 +58,13 @@
             "problemMatcher": []
         },
         {
-            "label": "Windows: API",
+            "label": "API",
             "type": "shell",
-            "command": "cmd",
-            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api dev"],
+            "command": "bash",
+            "args": [
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api dev; else .venv/Scripts/activate.bat && api dev; fi"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}/api"
             },
@@ -76,10 +79,13 @@
             "problemMatcher": []
         },
         {
-            "label": "Windows: Celery Worker",
+            "label": "Celery Worker",
             "type": "shell",
-            "command": "cmd",
-            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api start_celery_worker"],
+            "command": "bash",
+            "args": [
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api start_celery_worker; else .venv/Scripts/activate.bat && api start_celery_worker; fi"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}/api"
             },
@@ -94,10 +100,13 @@
             "problemMatcher": []
         },
         {
-            "label": "Windows: Celery Beat",
+            "label": "Celery Beat",
             "type": "shell",
-            "command": "cmd",
-            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api start_celery_beat"],
+            "command": "bash",
+            "args": [
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api start_celery_beat; else .venv/Scripts/activate.bat && api start_celery_beat; fi"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}/api"
             },
@@ -112,14 +121,14 @@
             "problemMatcher": []
         },
         {
-            "label": "Windows: Install Video Analysis Dependencies",
+            "label": "Install Video Analysis Dependencies",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Windows: Install FFmpeg",
-                "Windows: Install Opus MT Model",
-                "Windows: Install Vosk Model",
-                "Windows: Install Silero Repo",
-                "Windows: Install Silero TTS FR Model"
+                "Install FFmpeg",
+                "Install Opus MT Model",
+                "Install Vosk Model",
+                "Install Silero Repo",
+                "Install Silero TTS FR Model"
             ],
             "group": {
                 "kind": "build"
@@ -134,66 +143,12 @@
             }
         },
         {
-            "label": "Windows: Install FFmpeg",
+            "label": "Install FFmpeg",
             "type": "shell",
-            "command": "cmd",
-            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_ffmpeg"],
-            "options": {
-                "cwd": "${workspaceFolder}/api"
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Windows: Install Opus MT Model",
-            "type": "shell",
-            "command": "cmd",
-            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_opus_mt"],
-            "options": {
-                "cwd": "${workspaceFolder}/api"
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Windows: Install Vosk Model",
-            "type": "shell",
-            "command": "cmd",
-            "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_vosk_model"],
-            "options": {
-                "cwd": "${workspaceFolder}/api"
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Windows: Install Silero Repo",
-            "type": "shell",
-            "command": "cmd",
+            "command": "bash",
             "args": [
-                "/c",
-                "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_silero_repo"
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_ffmpeg; else .venv/Scripts/activate.bat && api install_ffmpeg; fi"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/api"
@@ -209,12 +164,12 @@
             "problemMatcher": []
         },
         {
-            "label": "Windows: Install Silero TTS FR Model",
+            "label": "Install Opus MT Model",
             "type": "shell",
-            "command": "cmd",
+            "command": "bash",
             "args": [
-                "/c",
-                "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_tts_model --language fr --speaker v3_fr"
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_opus_mt; else .venv/Scripts/activate.bat && api install_opus_mt; fi"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/api"
@@ -230,110 +185,221 @@
             "problemMatcher": []
         },
         {
-          "label": "Ubuntu: Logs: ergo-api-dev",
-          "type": "shell",
-          "command": "journalctl -u ergo-api-dev -n 500 -f | cat",
-          "options": {
-            "shell": {
-              "executable": "/bin/bash",
-              "args": ["-c"]
-            }
-          },
-          "presentation": {
-            "reveal": "always",
-            "panel": "dedicated",
-            "group": "ergo-api-dev",
-            "clear": false
-          },
-          "isBackground": false,
-          "problemMatcher": []
+            "label": "Install Vosk Model",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_vosk_model; else .venv/Scripts/activate.bat && api install_vosk_model; fi"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
         },
         {
-          "label": "Ubuntu: Logs: ergo-client-dev",
-          "type": "shell",
-          "command": "journalctl -u ergo-client-dev -n 500 -f | cat",
-          "options": {
-            "shell": {
-              "executable": "/bin/bash",
-              "args": ["-c"]
-            }
-          },
-          "presentation": {
-            "reveal": "always",
-            "panel": "dedicated",
-            "group": "ergo-client-dev",
-            "clear": false
-          },
-          "isBackground": false,
-          "problemMatcher": []
+            "label": "Install Silero Repo",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_silero_repo; else .venv/Scripts/activate.bat && api install_silero_repo; fi"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
         },
         {
-          "label": "Ubuntu: Logs: ergo-celery-worker",
-          "type": "shell",
-          "command": "journalctl -u ergo-celery-worker -n 500 -f | cat",
-          "options": {
-            "shell": {
-              "executable": "/bin/bash",
-              "args": ["-c"]
-            }
-          },
-          "presentation": {
-            "reveal": "always",
-            "panel": "dedicated",
-            "group": "ergo-celery-worker",
-            "clear": false
-          },
-          "isBackground": false,
-          "problemMatcher": []
+            "label": "Install Silero TTS FR Model",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "cd '${workspaceFolder}/api' && if [[ \"$(uname -s)\" == \"Linux\" ]]; then source .venv/bin/activate && api install_tts_model --language fr --speaker v3_fr; else .venv/Scripts/activate.bat && api install_tts_model --language fr --speaker v3_fr; fi"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
         },
         {
-          "label": "Ubuntu: Logs: ergo-celery-beat",
-          "type": "shell",
-          "command": "journalctl -u ergo-celery-beat -n 500 -f | cat",
-          "options": {
-            "shell": {
-              "executable": "/bin/bash",
-              "args": ["-c"]
-            }
-          },
-          "presentation": {
-            "reveal": "always",
-            "panel": "dedicated",
-            "group": "ergo-celery-beat",
-            "clear": false
-          },
-          "isBackground": false,
-          "problemMatcher": []
+            "label": "Logs: All services",
+            "dependsOrder": "parallel",
+            "dependsOn": [
+                "Logs: ergo-api-dev",
+                "Logs: ergo-client-dev",
+                "Logs: ergo-celery-worker",
+                "Logs: ergo-celery-beat"
+            ],
+            "problemMatcher": []
         },
         {
-          "label": "Ubuntu: Logs: All services",
-          "dependsOrder": "parallel",
-          "dependsOn": [
-            "Ubuntu: Logs: ergo-api-dev",
-            "Ubuntu: Logs: ergo-client-dev",
-            "Ubuntu: Logs: ergo-celery-worker",
-            "Ubuntu: Logs: ergo-celery-beat"
-          ],
-          "problemMatcher": []
+            "label": "Logs: ergo-api-dev",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "if [[ \"$(uname -s)\" == \"Linux\" ]]; then journalctl -u ergo-api-dev -n 500 -f | cat; else echo 'Logs not available on Windows - use Windows tasks instead'; fi"
+            ],
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": ["-c"]
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "ergo-api-dev",
+                "clear": false
+            },
+            "isBackground": false,
+            "problemMatcher": []
         },
         {
-          "label": "Ubuntu: Install CLI (ergoms)",
-          "type": "shell",
-          "command": "sudo /bin/bash /var/www/ergo_ms/linux/ergo_ms.sh install-cli | cat",
-          "options": {
-            "shell": {
-              "executable": "/bin/bash",
-              "args": ["-c"]
-            }
-          },
-          "presentation": {
-            "reveal": "always",
-            "panel": "dedicated",
-            "group": "ergo-ms-cli",
-            "clear": false
-          },
-          "isBackground": false,
-          "problemMatcher": []
+            "label": "Logs: ergo-client-dev",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "if [[ \"$(uname -s)\" == \"Linux\" ]]; then journalctl -u ergo-client-dev -n 500 -f | cat; else echo 'Logs not available on Windows - use Windows tasks instead'; fi"
+            ],
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": ["-c"]
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "ergo-client-dev",
+                "clear": false
+            },
+            "isBackground": false,
+            "problemMatcher": []
+        },
+        {
+            "label": "Logs: ergo-celery-worker",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "if [[ \"$(uname -s)\" == \"Linux\" ]]; then journalctl -u ergo-celery-worker -n 500 -f | cat; else echo 'Logs not available on Windows - use Windows tasks instead'; fi"
+            ],
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": ["-c"]
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "ergo-celery-worker",
+                "clear": false
+            },
+            "isBackground": false,
+            "problemMatcher": []
+        },
+        {
+            "label": "Logs: ergo-celery-beat",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "if [[ \"$(uname -s)\" == \"Linux\" ]]; then journalctl -u ergo-celery-beat -n 500 -f | cat; else echo 'Logs not available on Windows - use Windows tasks instead'; fi"
+            ],
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": ["-c"]
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "ergo-celery-beat",
+                "clear": false
+            },
+            "isBackground": false,
+            "problemMatcher": []
+        },
+        {
+            "label": "Install CLI (ergoms)",
+            "type": "shell",
+            "command": "/bin/bash",
+            "args": [
+                "-lc",
+                "if [[ $(uname -s) == Linux ]]; then sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install-cli | cat; else echo \"CLI installation not available on Windows - use Windows tasks instead\"; fi"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "ergo-ms-cli",
+                "clear": false
+            },
+            "isBackground": false,
+            "problemMatcher": []
+        },
+        {
+            "label": "Install Services & CLI",
+            "type": "shell",
+            "command": "/bin/bash",
+            "args": [
+                "-lc",
+                "if [[ $(uname -s) == Linux ]]; then sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install \"${workspaceFolder}\" | cat; else echo \"Services installation not available on Windows - use Windows tasks instead\"; fi"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "ergo-ms-services",
+                "clear": false
+            },
+            "isBackground": false,
+            "problemMatcher": []
+        },
+        {
+            "label": "Start Services",
+            "type": "shell",
+            "command": "/bin/bash",
+            "args": [
+                "-lc",
+                "if [[ $(uname -s) == Linux ]]; then sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" start | cat; else echo \"Services start not available on Windows - use Windows tasks instead\"; fi"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "group": "ergo-ms-services",
+                "clear": false
+            },
+            "isBackground": false,
+            "problemMatcher": []
         }
     ]
 } 

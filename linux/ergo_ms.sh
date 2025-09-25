@@ -203,7 +203,7 @@ Usage:
   sudo bash $0 [install|start|stop|restart|status|uninstall|install-cli|uninstall-cli] [--root /abs/path|--root=/abs/path|/abs/path] [--purge] [--no-cli]
 
 Commands:
-  install    Install units, save ERGO_ROOT, enable and start (default)
+  install    Install units, save ERGO_ROOT, enable and start
   start      Start all services
   stop       Stop all services
   restart    Restart all services
@@ -212,14 +212,14 @@ Commands:
   install-cli    Install CLI wrapper /usr/local/bin/ergoms
   uninstall-cli  Remove CLI wrapper
 
-If no command is provided, 'install' is assumed. For install you may pass --root.
+If no command is provided, this help is shown. For install you may pass --root.
 USAGE
 }
 
 main() {
   require_root_or_sudo
 
-  local command="install"
+  local command=""
   local ERGO_ROOT
   local arg_root=""
   local purge=false
@@ -239,6 +239,12 @@ main() {
       -h|--help)
         print_usage; exit 0 ;;
     esac
+  fi
+
+  # If no command provided, show help
+  if [[ -z "$command" ]]; then
+    print_usage
+    exit 0
   fi
 
   # Parse flags/positional root
@@ -273,6 +279,8 @@ main() {
     uninstall) uninstall_all "$purge"; exit 0 ;;
     install-cli) create_cli_wrapper "$SELF_SCRIPT"; exit 0 ;;
     uninstall-cli) remove_cli_wrapper; exit 0 ;;
+    install)  ;; # Continue to install flow
+    *)        echo "Unknown command: $command" >&2; print_usage; exit 1 ;;
   esac
 
   # INSTALL flow
