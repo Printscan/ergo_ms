@@ -29,10 +29,10 @@
             "label": "Windows: Start All Services",
             "dependsOrder": "parallel",
             "dependsOn": [
-                "Client",
-                "API",
-                "Celery Worker", 
-                "Celery Beat"
+                "Windows: Client",
+                "Windows: API",
+                "Windows: Celery Worker", 
+                "Windows: Celery Beat"
             ],
             "group": {
                 "kind": "build",
