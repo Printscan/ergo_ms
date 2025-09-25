@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Setup Full System",
+            "label": "Windows: Setup Full System",
             "type": "shell",
             "command": "cmd",
             "args": [
@@ -26,7 +26,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Start All Services",
+            "label": "Windows: Start All Services",
             "dependsOrder": "parallel",
             "dependsOn": [
                 "Client",
@@ -40,7 +40,7 @@
             }
         },
         {
-            "label": "Client",
+            "label": "Windows: Client",
             "type": "shell",
             "command": "npm",
             "args": ["run", "dev"],
@@ -58,7 +58,7 @@
             "problemMatcher": []
         },
         {
-            "label": "API",
+            "label": "Windows: API",
             "type": "shell",
             "command": "cmd",
             "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api dev"],
@@ -76,7 +76,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Celery Worker",
+            "label": "Windows: Celery Worker",
             "type": "shell",
             "command": "cmd",
             "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api start_celery_worker"],
@@ -94,7 +94,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Celery Beat",
+            "label": "Windows: Celery Beat",
             "type": "shell",
             "command": "cmd",
             "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api start_celery_beat"],
@@ -112,14 +112,14 @@
             "problemMatcher": []
         },
         {
-            "label": "Install Video Analysis Dependencies",
+            "label": "Windows: Install Video Analysis Dependencies",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Install FFmpeg",
-                "Install Opus MT Model",
-                "Install Vosk Model",
-                "Install Silero Repo",
-                "Install Silero TTS FR Model"
+                "Windows: Install FFmpeg",
+                "Windows: Install Opus MT Model",
+                "Windows: Install Vosk Model",
+                "Windows: Install Silero Repo",
+                "Windows: Install Silero TTS FR Model"
             ],
             "group": {
                 "kind": "build"
@@ -134,7 +134,7 @@
             }
         },
         {
-            "label": "Install FFmpeg",
+            "label": "Windows: Install FFmpeg",
             "type": "shell",
             "command": "cmd",
             "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_ffmpeg"],
@@ -152,7 +152,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Install Opus MT Model",
+            "label": "Windows: Install Opus MT Model",
             "type": "shell",
             "command": "cmd",
             "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_opus_mt"],
@@ -170,7 +170,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Install Vosk Model",
+            "label": "Windows: Install Vosk Model",
             "type": "shell",
             "command": "cmd",
             "args": ["/c", "${workspaceFolder}/api/.venv/Scripts/activate.bat && api install_vosk_model"],
@@ -188,7 +188,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Install Silero Repo",
+            "label": "Windows: Install Silero Repo",
             "type": "shell",
             "command": "cmd",
             "args": [
@@ -209,7 +209,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Install Silero TTS FR Model",
+            "label": "Windows: Install Silero TTS FR Model",
             "type": "shell",
             "command": "cmd",
             "args": [
@@ -228,6 +228,112 @@
                 "clear": false
             },
             "problemMatcher": []
+        },
+        {
+          "label": "Ubuntu: Logs: ergo-api-dev",
+          "type": "shell",
+          "command": "journalctl -u ergo-api-dev -n 500 -f | cat",
+          "options": {
+            "shell": {
+              "executable": "/bin/bash",
+              "args": ["-c"]
+            }
+          },
+          "presentation": {
+            "reveal": "always",
+            "panel": "dedicated",
+            "group": "ergo-api-dev",
+            "clear": false
+          },
+          "isBackground": false,
+          "problemMatcher": []
+        },
+        {
+          "label": "Ubuntu: Logs: ergo-client-dev",
+          "type": "shell",
+          "command": "journalctl -u ergo-client-dev -n 500 -f | cat",
+          "options": {
+            "shell": {
+              "executable": "/bin/bash",
+              "args": ["-c"]
+            }
+          },
+          "presentation": {
+            "reveal": "always",
+            "panel": "dedicated",
+            "group": "ergo-client-dev",
+            "clear": false
+          },
+          "isBackground": false,
+          "problemMatcher": []
+        },
+        {
+          "label": "Ubuntu: Logs: ergo-celery-worker",
+          "type": "shell",
+          "command": "journalctl -u ergo-celery-worker -n 500 -f | cat",
+          "options": {
+            "shell": {
+              "executable": "/bin/bash",
+              "args": ["-c"]
+            }
+          },
+          "presentation": {
+            "reveal": "always",
+            "panel": "dedicated",
+            "group": "ergo-celery-worker",
+            "clear": false
+          },
+          "isBackground": false,
+          "problemMatcher": []
+        },
+        {
+          "label": "Ubuntu: Logs: ergo-celery-beat",
+          "type": "shell",
+          "command": "journalctl -u ergo-celery-beat -n 500 -f | cat",
+          "options": {
+            "shell": {
+              "executable": "/bin/bash",
+              "args": ["-c"]
+            }
+          },
+          "presentation": {
+            "reveal": "always",
+            "panel": "dedicated",
+            "group": "ergo-celery-beat",
+            "clear": false
+          },
+          "isBackground": false,
+          "problemMatcher": []
+        },
+        {
+          "label": "Ubuntu: Logs: All services",
+          "dependsOrder": "parallel",
+          "dependsOn": [
+            "Ubuntu: Logs: ergo-api-dev",
+            "Ubuntu: Logs: ergo-client-dev",
+            "Ubuntu: Logs: ergo-celery-worker",
+            "Ubuntu: Logs: ergo-celery-beat"
+          ],
+          "problemMatcher": []
+        },
+        {
+          "label": "Ubuntu: Install CLI (ergoms)",
+          "type": "shell",
+          "command": "sudo /bin/bash /var/www/ergo_ms/linux/ergo_ms.sh install-cli | cat",
+          "options": {
+            "shell": {
+              "executable": "/bin/bash",
+              "args": ["-c"]
+            }
+          },
+          "presentation": {
+            "reveal": "always",
+            "panel": "dedicated",
+            "group": "ergo-ms-cli",
+            "clear": false
+          },
+          "isBackground": false,
+          "problemMatcher": []
         }
     ]
 } 
