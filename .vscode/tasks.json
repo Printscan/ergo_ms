@@ -202,220 +202,37 @@
         },
         {
             "label": "Install Video Analysis Dependencies",
-            "dependsOrder": "sequence",
-            "dependsOn": [
-                "Install FFmpeg",
-                "Install Opus MT Model",
-                "Install Vosk Model",
-                "Install Silero Repo",
-                "Install Silero TTS FR Model"
-            ],
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/api",
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
+            "command": ".venv\\Scripts\\activate.bat && api install_ffmpeg && api install_opus_mt && api install_vosk_model && api install_silero_repo && api install_tts_model --language fr --speaker v3_fr",
+            "windows": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "cmd.exe",
+                        "args": ["/d", "/c"]
+                    }
+                },
+                "command": ".venv\\Scripts\\activate.bat && api install_ffmpeg && api install_opus_mt && api install_vosk_model && api install_silero_repo && api install_tts_model --language fr --speaker v3_fr"
+            },
+            "linux": {
+                "options": {
+                    "cwd": "${workspaceFolder}/api",
+                    "shell": {
+                        "executable": "/bin/bash",
+                        "args": ["-lc"]
+                    }
+                },
+                "command": "source .venv/bin/activate && api install_ffmpeg && api install_opus_mt && api install_vosk_model && api install_silero_repo && api install_tts_model --language fr --speaker v3_fr"
+            },
             "group": {
                 "kind": "build"
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            }
-        },
-        {
-            "label": "Install FFmpeg",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/api",
-                "shell": {
-                    "executable": "cmd.exe",
-                    "args": ["/d", "/c"]
-                }
-            },
-            "command": ".venv\\Scripts\\activate.bat && api install_ffmpeg",
-            "windows": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": ["/d", "/c"]
-                    }
-                },
-                "command": ".venv\\Scripts\\activate.bat && api install_ffmpeg"
-            },
-            "linux": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": ["-lc"]
-                    }
-                },
-                "command": "source .venv/bin/activate && api install_ffmpeg"
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Install Opus MT Model",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/api",
-                "shell": {
-                    "executable": "cmd.exe",
-                    "args": ["/d", "/c"]
-                }
-            },
-            "command": ".venv\\Scripts\\activate.bat && api install_opus_mt",
-            "windows": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": ["/d", "/c"]
-                    }
-                },
-                "command": ".venv\\Scripts\\activate.bat && api install_opus_mt"
-            },
-            "linux": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": ["-lc"]
-                    }
-                },
-                "command": "source .venv/bin/activate && api install_opus_mt"
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Install Vosk Model",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/api",
-                "shell": {
-                    "executable": "cmd.exe",
-                    "args": ["/d", "/c"]
-                }
-            },
-            "command": ".venv\\Scripts\\activate.bat && api install_vosk_model",
-            "windows": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": ["/d", "/c"]
-                    }
-                },
-                "command": ".venv\\Scripts\\activate.bat && api install_vosk_model"
-            },
-            "linux": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": ["-lc"]
-                    }
-                },
-                "command": "source .venv/bin/activate && api install_vosk_model"
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Install Silero Repo",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/api",
-                "shell": {
-                    "executable": "cmd.exe",
-                    "args": ["/d", "/c"]
-                }
-            },
-            "command": ".venv\\Scripts\\activate.bat && api install_silero_repo",
-            "windows": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": ["/d", "/c"]
-                    }
-                },
-                "command": ".venv\\Scripts\\activate.bat && api install_silero_repo"
-            },
-            "linux": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": ["-lc"]
-                    }
-                },
-                "command": "source .venv/bin/activate && api install_silero_repo"
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Install Silero TTS FR Model",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/api",
-                "shell": {
-                    "executable": "cmd.exe",
-                    "args": ["/d", "/c"]
-                }
-            },
-            "command": ".venv\\Scripts\\activate.bat && api install_tts_model --language fr --speaker v3_fr",
-            "windows": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": ["/d", "/c"]
-                    }
-                },
-                "command": ".venv\\Scripts\\activate.bat && api install_tts_model --language fr --speaker v3_fr"
-            },
-            "linux": {
-                "options": {
-                    "cwd": "${workspaceFolder}/api",
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": ["-lc"]
-                    }
-                },
-                "command": "source .venv/bin/activate && api install_tts_model --language fr --speaker v3_fr"
             },
             "presentation": {
                 "echo": true,
