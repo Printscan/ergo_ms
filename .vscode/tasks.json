@@ -30,7 +30,7 @@
                         "args": ["-lc"]
                     }
                 },
-                "command": "cd \"${workspaceFolder}/api\" && python3 -m venv .venv && source .venv/bin/activate && pip install poetry && poetry install && api migrate && api collectstatic --noinput && cd \"${workspaceFolder}/client\" && npm install"
+                "command": "cd \"${workspaceFolder}/api\" && python3.12 -m venv .venv && source .venv/bin/activate && pip install poetry && poetry install && api migrate && api collectstatic --noinput && sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install \"${workspaceFolder}\" && cd \"${workspaceFolder}/client\" && npm install"
             },
             "presentation": {
                 "echo": true,
@@ -398,117 +398,6 @@
                 "reveal": "always",
                 "panel": "dedicated",
                 "group": "ergo-celery-beat",
-                "clear": false
-            },
-            "isBackground": false,
-            "problemMatcher": []
-        },
-        {
-            "label": "Install CLI (ergoms)",
-            "type": "shell",
-            "options": {
-                "shell": {
-                    "executable": "cmd.exe",
-                    "args": ["/d", "/c"]
-                }
-            },
-            "command": "echo CLI installation not available on Windows - use Windows tasks instead",
-            "windows": {
-                "command": "echo CLI installation not available on Windows - use Windows tasks instead",
-                "options": {
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": ["/d", "/c"]
-                    }
-                }
-            },
-            "linux": {
-                "command": "sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install-cli | cat",
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": ["-lc"]
-                    }
-                }
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "dedicated",
-                "group": "ergo-ms-cli",
-                "clear": false
-            },
-            "isBackground": false,
-            "problemMatcher": []
-        },
-        {
-            "label": "Install Services & CLI",
-            "type": "shell",
-            "options": {
-                "shell": {
-                    "executable": "cmd.exe",
-                    "args": ["/d", "/c"]
-                }
-            },
-            "command": "echo Services installation not available on Windows - use Windows tasks instead",
-            "windows": {
-                "command": "echo Services installation not available on Windows - use Windows tasks instead",
-                "options": {
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": ["/d", "/c"]
-                    }
-                }
-            },
-            "linux": {
-                "command": "sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" install \"${workspaceFolder}\" | cat",
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": ["-lc"]
-                    }
-                }
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "dedicated",
-                "group": "ergo-ms-services",
-                "clear": false
-            },
-            "isBackground": false,
-            "problemMatcher": []
-        },
-        {
-            "label": "Start Services",
-            "type": "shell",
-            "options": {
-                "shell": {
-                    "executable": "cmd.exe",
-                    "args": ["/d", "/c"]
-                }
-            },
-            "command": "echo Services start not available on Windows - use Windows tasks instead",
-            "windows": {
-                "command": "echo Services start not available on Windows - use Windows tasks instead",
-                "options": {
-                    "shell": {
-                        "executable": "cmd.exe",
-                        "args": ["/d", "/c"]
-                    }
-                }
-            },
-            "linux": {
-                "command": "sudo /bin/bash \"${workspaceFolder}/linux/ergo_ms.sh\" start | cat",
-                "options": {
-                    "shell": {
-                        "executable": "/bin/bash",
-                        "args": ["-lc"]
-                    }
-                }
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "dedicated",
-                "group": "ergo-ms-services",
                 "clear": false
             },
             "isBackground": false,
