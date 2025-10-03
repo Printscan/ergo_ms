@@ -1,4 +1,5 @@
-/installation
-
-.env
 databases.yaml
+
+# Игнорировать все в папке configs/configs.env кроме .gitkeep
+/configs/configs.env/*
+!/configs/configs.env/.gitkeep

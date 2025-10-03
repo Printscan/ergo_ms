@@ -30,5 +30,15 @@
     "terminal.integrated.tabs.showActions": "always",
     "terminal.integrated.tabs.title": "${processName}",
     "terminal.integrated.tabs.description": "${cwd}",
-    "terminal.integrated.splitCwd": "workspaceRoot"
+    "terminal.integrated.splitCwd": "workspaceRoot",
+    
+    "files.exclude": {
+        "**/.git": false,
+        "**/.DS_Store": true,
+        "**/.*": false
+    },
+    "search.exclude": {
+        "**/.git": true,
+        "**/node_modules": true
+    }
 } 
